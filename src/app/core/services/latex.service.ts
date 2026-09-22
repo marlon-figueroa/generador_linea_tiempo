@@ -18,7 +18,21 @@ export class LatexService {
     if (/^seleccione|^datos insuficientes/i.test(text)) {
       return false;
     }
-    return /[=\\^_{]|Σ|·|−|\(P\/|[A-Z]\s*=/.test(text);
+    return /[=\\^_{]|Σ|·|−|\([A-Z]\/[A-Z]|[A-Z]\/[A-Z]|[A-Z]\s*=/.test(text);
+  }
+
+  looksLikeFormula(source: string | number): boolean {
+    const text = String(source).trim();
+    if (!text || /[$€]|copiado|ajuste los|complete |seleccione/i.test(text)) {
+      return false;
+    }
+    if (/[A-Z]\/[A-Z]/.test(text)) {
+      return true;
+    }
+    if (/[áéíóúñ¿¡]/i.test(text) && !/\\[a-zA-Z]/.test(text)) {
+      return false;
+    }
+    return this.isRenderable(text) && text.length <= 140;
   }
 
   toLatex(source: string): string {
@@ -26,6 +40,7 @@ export class LatexService {
     if (/\\[a-zA-Z]/.test(s)) {
       return s;
     }
+    s = s.replaceAll('%', '\\%');
     s = s.replaceAll('·', '\\cdot ');
     s = s.replaceAll('−', '-');
     s = s.replaceAll('×', '\\times ');

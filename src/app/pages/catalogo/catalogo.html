@@ -26,12 +26,29 @@
   }
 </div>
 
+<div class="panel mb-3">
+  <div class="small text-secondary text-uppercase fw-semibold mb-3">Fórmulas de los factores</div>
+  <div class="row g-3">
+    @for (item of factorFormulas; track item.key) {
+      <div class="col-md-6 col-xl-4">
+        <app-latex-formula [caption]="item.caption" [latex]="item.latex" />
+      </div>
+    }
+  </div>
+</div>
+
 <div class="table-responsive panel p-0">
   <table class="table table-sm table-hover mb-0">
     <thead>
       <tr>
         @for (header of headers; track header) {
-          <th>{{ header }}</th>
+          <th>
+            @if (header !== 'n') {
+              <app-latex-formula [latex]="headerLatex(header)" display="inline" />
+            } @else {
+              {{ header }}
+            }
+          </th>
         }
       </tr>
     </thead>

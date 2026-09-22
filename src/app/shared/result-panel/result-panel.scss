@@ -7,12 +7,8 @@
   background: var(--bs-body-bg);
 }
 
-.formula-box code {
+.formula-box app-latex-formula {
   display: block;
-  margin-top: 0.35rem;
-  font-size: 1.02rem;
-  color: var(--bs-emphasis-color);
-  white-space: pre-wrap;
 }
 
 .highlight-card {

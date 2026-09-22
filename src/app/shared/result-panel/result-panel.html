@@ -36,7 +36,13 @@
       <h3 class="h6">Pasos</h3>
       <ol class="small mb-4">
         @for (step of output.steps; track step) {
-          <li>{{ step }}</li>
+          <li>
+            @if (isFormula(step)) {
+              <app-latex-formula [latex]="step" display="inline" [framed]="false" />
+            } @else {
+              {{ step }}
+            }
+          </li>
         }
       </ol>
     }
@@ -57,7 +63,13 @@
           <thead>
             <tr>
               @for (header of table.headers; track header) {
-                <th>{{ header }}</th>
+                <th>
+                  @if (isFormula(header)) {
+                    <app-latex-formula [latex]="headerLatex(header)" display="inline" />
+                  } @else {
+                    {{ header }}
+                  }
+                </th>
               }
             </tr>
           </thead>
@@ -65,7 +77,13 @@
             @for (row of table.rows; track $index) {
               <tr>
                 @for (cell of row; track $index) {
-                  <td>{{ cell }}</td>
+                  <td>
+                    @if (isFormula(cell)) {
+                      <app-latex-formula [latex]="'' + cell" display="inline" />
+                    } @else {
+                      {{ cell }}
+                    }
+                  </td>
                 }
               </tr>
             }

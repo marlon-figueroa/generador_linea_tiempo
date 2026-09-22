@@ -1,5 +1,6 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { CalcOutput } from '../../core/models/engineering.models';
+import { LatexService } from '../../core/services/latex.service';
 import { copyText, tableToTsv } from '../../core/utils/format';
 import { LatexFormula } from '../latex-formula/latex-formula';
 
@@ -10,8 +11,17 @@ import { LatexFormula } from '../latex-formula/latex-formula';
   styleUrl: './result-panel.scss',
 })
 export class ResultPanel {
+  private readonly latex = inject(LatexService);
   readonly result = input<CalcOutput | null>(null);
   readonly copied = signal('');
+
+  isFormula(value: string | number): boolean {
+    return this.latex.looksLikeFormula(value);
+  }
+
+  headerLatex(header: string): string {
+    return /^[A-Z]\/[A-Z]$/.test(header) ? `(${header})` : header;
+  }
 
   async copyConclusion(): Promise<void> {
     const output = this.result();

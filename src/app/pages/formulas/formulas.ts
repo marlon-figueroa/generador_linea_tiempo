@@ -31,7 +31,7 @@ export class Formulas {
     const q = this.query().toLowerCase();
     return this.catalog.filter((item) => {
       const catOk = this.category() === 'Todas' || item.category === this.category();
-      const text = `${item.name} ${item.expression} ${item.unknown}`.toLowerCase();
+      const text = `${item.name} ${item.expression} ${item.latex} ${item.unknown}`.toLowerCase();
       return catOk && text.includes(q);
     });
   });

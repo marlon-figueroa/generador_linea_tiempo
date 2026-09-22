@@ -293,8 +293,13 @@ export const HELP_TOPICS: HelpTopic[] = [
     formulas: [
       { caption: 'Cantidad compuesta', latex: '(F/P,i,n)=(1+i)^{n}' },
       { caption: 'Valor presente', latex: '(P/F,i,n)=(1+i)^{-n}' },
+      { caption: 'Serie a futuro', latex: '(F/A,i,n)=\\dfrac{(1+i)^{n}-1}{i}' },
+      { caption: 'Fondo de amortización', latex: '(A/F,i,n)=\\dfrac{i}{(1+i)^{n}-1}' },
       { caption: 'Serie a presente', latex: '(P/A,i,n)=\\dfrac{(1+i)^{n}-1}{i(1+i)^{n}}' },
       { caption: 'Recuperación de capital', latex: '(A/P,i,n)=\\dfrac{i(1+i)^{n}}{(1+i)^{n}-1}' },
+      { caption: 'Gradiente a presente', latex: '(P/G,i,n)=\\dfrac{(1+i)^{n}-in-1}{i^{2}(1+i)^{n}}' },
+      { caption: 'Gradiente a serie', latex: '(A/G,i,n)=\\dfrac{1}{i}-\\dfrac{n}{(1+i)^{n}-1}' },
+      { caption: 'Gradiente a futuro', latex: '(F/G,i,n)=(P/G,i,n)(1+i)^{n}' },
     ],
   },
   {

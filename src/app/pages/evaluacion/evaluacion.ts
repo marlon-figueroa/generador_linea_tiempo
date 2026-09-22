@@ -50,7 +50,7 @@ export class Evaluacion {
     const result: CalcOutput = {
       title: 'Evaluación de proyecto',
       formula:
-        'VPN = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+i)^{t}} \\qquad 0 = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+TIR)^{t}} \\qquad CAUE = VPN\\,(A/P,i,n)',
+        'VPN = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+i)^{t}} \\qquad 0 = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+TIR)^{t}} \\qquad CAUE = VPN\\,(A/P,i,n) \\qquad \\dfrac{B}{C} = \\dfrac{VP(B)}{VP(C)}',
       steps: [
         `TMAR i = ${pctFmt(i)}.`,
         `VPN = ${moneyFmt(vpn)}.`,
