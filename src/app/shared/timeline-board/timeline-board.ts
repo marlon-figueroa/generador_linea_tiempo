@@ -72,12 +72,12 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
     }
     this.graph.clear();
     const dark = this.theme.theme() === 'dark';
-    const axis = dark ? '#8fb8c4' : '#3d5a63';
-    const tick = dark ? '#d7eef2' : '#16343c';
-    const inflow = '#2fb67c';
-    const outflow = '#e45757';
-    const label = dark ? '#e8f4f4' : '#16343c';
-    const muted = dark ? '#90a8ae' : '#5b7177';
+    const axis = dark ? '#93c5fd' : '#1d4ed8';
+    const tick = dark ? '#dbeafe' : '#1e3a8a';
+    const inflow = '#2563eb';
+    const outflow = '#b91c1c';
+    const label = dark ? '#e8eeff' : '#14233f';
+    const muted = dark ? '#9db0d4' : '#4b5d86';
 
     const grouped = this.groupByPeriod(this.points());
     const periods = grouped.length ? grouped.map((g) => g.period) : [0, 1, 2, 3, 4, 5];
@@ -113,8 +113,9 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
       label: {
         text: 'Línea de tiempo de flujos',
         fill: label,
+        fontFamily: 'PT Sans',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '700',
         textAnchor: 'start',
         textVerticalAnchor: 'top',
       },
@@ -136,7 +137,7 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
       nLabel.resize(36, 20);
       nLabel.attr({
         body: { fill: 'transparent', stroke: 'transparent' },
-        label: { text: String(period), fill: muted, fontSize: 12 },
+        label: { text: String(period), fill: muted, fontSize: 12, fontFamily: 'PT Sans' },
       });
       nLabel.addTo(this.graph);
     }
@@ -146,7 +147,7 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
     tLabel.resize(40, 20);
     tLabel.attr({
       body: { fill: 'transparent', stroke: 'transparent' },
-      label: { text: 't', fill: muted, fontSize: 13, fontWeight: '700' },
+      label: { text: 't', fill: muted, fontSize: 13, fontWeight: '700', fontFamily: 'PT Sans' },
     });
     tLabel.addTo(this.graph);
 
@@ -176,7 +177,7 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
         box.resize(92, 38);
         box.attr({
           body: {
-            fill: dark ? '#102226' : '#ffffff',
+            fill: dark ? '#10192e' : '#ffffff',
             stroke: color,
             strokeWidth: 1.2,
             rx: 8,
@@ -186,7 +187,8 @@ export class TimelineBoard implements AfterViewInit, OnDestroy {
             text: `${point.label}\n${moneyFmt(point.amount)}`,
             fill: label,
             fontSize: 10,
-            fontWeight: '600',
+            fontWeight: '700',
+            fontFamily: 'PT Sans',
           },
         });
         box.addTo(this.graph!);

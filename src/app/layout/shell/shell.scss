@@ -2,15 +2,21 @@
   min-height: 100vh;
   display: flex;
   background: var(--ie-app-bg);
+  font-family: 'PT Sans', system-ui, sans-serif;
 }
 
 .ie-sidebar {
   width: 280px;
   flex-shrink: 0;
-  background: var(--ie-sidebar-bg);
+  background:
+    linear-gradient(180deg, #163986 0%, #102a62 48%, #0c204c 100%);
   color: var(--ie-sidebar-fg);
   padding: 1.25rem 0.9rem 2rem;
-  border-right: 1px solid color-mix(in srgb, var(--ie-sidebar-fg) 12%, transparent);
+  border-right: 1px solid color-mix(in srgb, #93c5fd 16%, transparent);
+}
+
+[data-ie-theme='dark'] .ie-sidebar {
+  background: linear-gradient(180deg, #10244f 0%, #07102a 100%);
 }
 
 .brand {
@@ -22,19 +28,20 @@
 
 .brand i {
   font-size: 1.7rem;
-  color: #2dd4bf;
+  color: #93c5fd;
 }
 
 .brand small {
   display: block;
-  opacity: 0.7;
+  opacity: 0.72;
 }
 
 .ie-nav a,
 .nav-group {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 0.55rem;
   width: 100%;
   border: 0;
   background: transparent;
@@ -44,18 +51,33 @@
   border-radius: 0.7rem;
   padding: 0.55rem 0.7rem;
   margin-bottom: 0.2rem;
+  font-family: inherit;
 }
 
-.ie-nav a i,
-.nav-group i {
-  margin-right: 0.45rem;
+.ie-nav .nav-ico {
+  flex: 0 0 1.15rem;
+  width: 1.15rem;
+  text-align: center;
+  margin: 0;
+}
+
+.ie-nav .nav-label {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.ie-nav .nav-caret {
+  flex: 0 0 auto;
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.75;
 }
 
 .ie-nav a:hover,
 .nav-group:hover,
 .ie-nav a.active,
 .nav-group.active {
-  background: color-mix(in srgb, #2dd4bf 18%, transparent);
+  background: color-mix(in srgb, #60a5fa 24%, transparent);
 }
 
 .nav-children {
@@ -81,7 +103,7 @@
   gap: 0.85rem;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--bs-border-color);
-  background: color-mix(in srgb, var(--bs-body-bg) 92%, transparent);
+  background: color-mix(in srgb, var(--bs-body-bg) 92%, #1d4ed8);
   position: sticky;
   top: 0;
   z-index: 5;

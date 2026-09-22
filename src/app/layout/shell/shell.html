@@ -12,21 +12,24 @@
       @for (item of menu; track item.id) {
         @if (item.children) {
           <button type="button" class="nav-group" [class.active]="isChildActive(item)" (click)="toggleGroup(item.id)">
-            <span><i class="bi {{ item.icon }}"></i>{{ item.label }}</span>
-            <i class="bi" [class.bi-chevron-down]="isOpen(item)" [class.bi-chevron-right]="!isOpen(item)"></i>
+            <i class="bi nav-ico {{ item.icon }}"></i>
+            <span class="nav-label">{{ item.label }}</span>
+            <i class="bi nav-caret" [class.bi-chevron-down]="isOpen(item)" [class.bi-chevron-right]="!isOpen(item)"></i>
           </button>
           @if (isOpen(item)) {
             <div class="nav-children">
               @for (child of item.children; track child.id) {
                 <a [routerLink]="child.route" routerLinkActive="active">
-                  <i class="bi {{ child.icon }}"></i>{{ child.label }}
+                  <i class="bi nav-ico {{ child.icon }}"></i>
+                  <span class="nav-label">{{ child.label }}</span>
                 </a>
               }
             </div>
           }
         } @else {
           <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: item.route === '/' }">
-            <i class="bi {{ item.icon }}"></i>{{ item.label }}
+            <i class="bi nav-ico {{ item.icon }}"></i>
+            <span class="nav-label">{{ item.label }}</span>
           </a>
         }
       }
