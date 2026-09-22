@@ -1,0 +1,192 @@
+<form class="row g-3" (submit)="$event.preventDefault()">
+  <div class="col-12">
+    <label class="form-label" for="title">Nombre del escenario</label>
+    <input
+      id="title"
+      class="form-control"
+      [ngModel]="scenario().title"
+      (ngModelChange)="emit('title', $event)"
+      name="title"
+    />
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label" for="P">Valor presente P</label>
+    <input
+      id="P"
+      type="number"
+      class="form-control"
+      [ngModel]="scenario().presentValue"
+      (ngModelChange)="emit('presentValue', $event || 0)"
+      name="P"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="F">Valor futuro F</label>
+    <input
+      id="F"
+      type="number"
+      class="form-control"
+      [ngModel]="scenario().futureValue"
+      (ngModelChange)="emit('futureValue', $event || 0)"
+      name="F"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="A">Serie A</label>
+    <input
+      id="A"
+      type="number"
+      class="form-control"
+      [ngModel]="scenario().annuity"
+      (ngModelChange)="emit('annuity', $event || 0)"
+      name="A"
+    />
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label" for="G">Gradiente G</label>
+    <input
+      id="G"
+      type="number"
+      class="form-control"
+      [ngModel]="scenario().gradient"
+      (ngModelChange)="emit('gradient', $event || 0)"
+      name="G"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="g">Crecimiento g (%)</label>
+    <input
+      id="g"
+      type="number"
+      class="form-control"
+      [ngModel]="scenario().geometricRatePercent"
+      (ngModelChange)="emit('geometricRatePercent', $event || 0)"
+      name="g"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="rate">Tasa nominal anual (%)</label>
+    <input
+      id="rate"
+      type="number"
+      step="0.01"
+      class="form-control"
+      [ngModel]="scenario().nominalAnnualPercent"
+      (ngModelChange)="emit('nominalAnnualPercent', $event || 0)"
+      name="rate"
+    />
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label" for="years">Horizonte (años)</label>
+    <input
+      id="years"
+      type="number"
+      min="0"
+      class="form-control"
+      [ngModel]="scenario().years"
+      (ngModelChange)="emit('years', $event || 0)"
+      name="years"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="n">Períodos (opcional)</label>
+    <input
+      id="n"
+      type="number"
+      min="0"
+      class="form-control"
+      [ngModel]="scenario().periodsOverride ?? ''"
+      (ngModelChange)="onOptionalPeriods($event)"
+      name="n"
+    />
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="delay">Períodos de gracia k</label>
+    <input
+      id="delay"
+      type="number"
+      min="0"
+      class="form-control"
+      [ngModel]="scenario().deferredPeriods"
+      (ngModelChange)="emit('deferredPeriods', $event || 0)"
+      name="delay"
+    />
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label" for="interest">Tipo de interés</label>
+    <select
+      id="interest"
+      class="form-select"
+      [ngModel]="scenario().interestType"
+      (ngModelChange)="emit('interestType', $event)"
+      name="interest"
+    >
+      @for (item of interests; track item.key) {
+        <option [value]="item.key">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="cap">Capitalización</label>
+    <select
+      id="cap"
+      class="form-select"
+      [ngModel]="scenario().capitalization"
+      (ngModelChange)="onFrequency('capitalization', $event)"
+      name="cap"
+    >
+      @for (item of frequencies; track item.key) {
+        <option [value]="item.key">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label" for="pay">Frecuencia de pago</label>
+    <select
+      id="pay"
+      class="form-select"
+      [ngModel]="scenario().paymentFrequency"
+      (ngModelChange)="onFrequency('paymentFrequency', $event)"
+      name="pay"
+    >
+      @for (item of frequencies; track item.key) {
+        @if (item.key !== 'continuous') {
+          <option [value]="item.key">{{ item.label }}</option>
+        }
+      }
+    </select>
+  </div>
+
+  <div class="col-md-6">
+    <label class="form-label" for="series">Serie de pagos</label>
+    <select
+      id="series"
+      class="form-select"
+      [ngModel]="scenario().seriesType"
+      (ngModelChange)="emit('seriesType', $event)"
+      name="series"
+    >
+      @for (item of series; track item.key) {
+        <option [value]="item.key">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label" for="timing">Momento del pago</label>
+    <select
+      id="timing"
+      class="form-select"
+      [ngModel]="scenario().paymentTiming"
+      (ngModelChange)="emit('paymentTiming', $event)"
+      name="timing"
+    >
+      @for (item of timings; track item.key) {
+        <option [value]="item.key">{{ item.label }}</option>
+      }
+    </select>
+  </div>
+</form>

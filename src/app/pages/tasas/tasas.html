@@ -1,0 +1,37 @@
+<p class="eyebrow mb-1">Tasas</p>
+<h1 class="h3">Nominal, efectiva, capitalización e inflación</h1>
+<p class="text-secondary">
+  Compare la misma nominal bajo todas las frecuencias y obtenga la tasa real de Fisher.
+</p>
+
+<div class="panel mb-4">
+  <form class="row g-3" (submit)="$event.preventDefault()">
+    <div class="col-md-3">
+      <label class="form-label" for="nom">Nominal anual (%)</label>
+      <input id="nom" type="number" class="form-control" [ngModel]="nominal()" (ngModelChange)="nominal.set($event)" name="nom" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="inf">Inflación (%)</label>
+      <input id="inf" type="number" class="form-control" [ngModel]="inflation()" (ngModelChange)="inflation.set($event)" name="inf" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="cap">Capitalización de referencia</label>
+      <select id="cap" class="form-select" [ngModel]="capitalization()" (ngModelChange)="capitalization.set($event)" name="cap">
+        @for (item of frequencies; track item.key) {
+          <option [value]="item.key">{{ item.label }}</option>
+        }
+        <option value="continuous">Continua</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="type">Tipo</label>
+      <select id="type" class="form-select" [ngModel]="interestType()" (ngModelChange)="interestType.set($event)" name="type">
+        <option value="simple">Simple</option>
+        <option value="compound">Compuesto</option>
+        <option value="continuous">Continuo</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+<app-result-panel [result]="result()" />

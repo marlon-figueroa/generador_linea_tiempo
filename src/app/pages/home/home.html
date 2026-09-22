@@ -1,0 +1,33 @@
+<section class="page-hero mb-4">
+  <p class="eyebrow">Laboratorio de ingeniería económica</p>
+  <h1 class="display-6 fw-semibold">Calcule, tabule y diagramé flujos en el tiempo</h1>
+  <p class="lead mb-0">
+    Angular 22, Bootstrap 5.3 y JointJS para equivalencias, tasas, series, gradientes, TIR,
+    depreciación y un índice de conceptos. El tema claro u oscuro se guarda en este navegador.
+  </p>
+</section>
+
+<div class="d-flex flex-wrap gap-2 mb-4">
+  <button type="button" class="btn btn-outline-primary btn-sm" (click)="loadDemo('single')">
+    Cargar demo: pago único
+  </button>
+  <button type="button" class="btn btn-outline-primary btn-sm" (click)="loadDemo('annuity')">
+    Cargar demo: anualidad
+  </button>
+  <button type="button" class="btn btn-outline-primary btn-sm" (click)="loadDemo('gradient')">
+    Cargar demo: gradiente
+  </button>
+  <a routerLink="/linea-tiempo" class="btn btn-primary btn-sm">Ver línea de tiempo</a>
+</div>
+
+<div class="row g-3">
+  @for (card of cards; track card.route) {
+    <div class="col-md-6 col-xl-4">
+      <a [routerLink]="card.route" class="module-card">
+        <i class="bi {{ card.icon }}"></i>
+        <h2 class="h5">{{ card.title }}</h2>
+        <p class="mb-0">{{ card.text }}</p>
+      </a>
+    </div>
+  }
+</div>

@@ -1,0 +1,82 @@
+@if (result(); as output) {
+  <section class="result-panel">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+      <h2 class="h5 mb-0">{{ output.title }}</h2>
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="copyConclusion()">
+          <i class="bi bi-clipboard me-1"></i>Copiar conclusión
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="copyAll()">
+          <i class="bi bi-clipboard-check me-1"></i>Copiar todo
+        </button>
+      </div>
+    </div>
+
+    @if (copied()) {
+      <div class="alert alert-success py-2" role="status">Se copió {{ copied() }} al portapapeles.</div>
+    }
+
+    <div class="formula-box mb-3">
+      <div class="small text-secondary text-uppercase fw-semibold">Fórmula generada</div>
+      <code>{{ output.formula }}</code>
+    </div>
+
+    <div class="row g-3 mb-3">
+      @for (item of output.highlights; track item.label) {
+        <div class="col-6 col-lg-4">
+          <div class="highlight-card tone-{{ item.tone || 'muted' }}">
+            <div class="small text-secondary">{{ item.label }}</div>
+            <div class="fs-5 fw-semibold">{{ item.value }}</div>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (output.steps.length) {
+      <h3 class="h6">Pasos</h3>
+      <ol class="small mb-4">
+        @for (step of output.steps; track step) {
+          <li>{{ step }}</li>
+        }
+      </ol>
+    }
+
+    @for (table of output.tables; track table.title) {
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h3 class="h6 mb-0">{{ table.title }}</h3>
+        <button
+          type="button"
+          class="btn btn-link btn-sm py-0"
+          (click)="copyTable(table.title, table.headers, table.rows)"
+        >
+          Copiar tabla
+        </button>
+      </div>
+      <div class="table-responsive mb-4">
+        <table class="table table-sm table-striped align-middle">
+          <thead>
+            <tr>
+              @for (header of table.headers; track header) {
+                <th>{{ header }}</th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of table.rows; track $index) {
+              <tr>
+                @for (cell of row; track $index) {
+                  <td>{{ cell }}</td>
+                }
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <div class="conclusion-box">
+      <div class="small text-secondary text-uppercase fw-semibold mb-1">Conclusión</div>
+      <p class="mb-0">{{ output.conclusion }}</p>
+    </div>
+  </section>
+}

@@ -1,0 +1,40 @@
+.formula-box,
+.conclusion-box,
+.highlight-card {
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: var(--bs-body-bg);
+}
+
+.formula-box code {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1.02rem;
+  color: var(--bs-emphasis-color);
+  white-space: pre-wrap;
+}
+
+.highlight-card {
+  height: 100%;
+}
+
+.highlight-card.tone-primary {
+  border-color: color-mix(in srgb, var(--bs-primary) 45%, var(--bs-border-color));
+}
+
+.highlight-card.tone-success {
+  border-color: color-mix(in srgb, var(--bs-success) 45%, var(--bs-border-color));
+}
+
+.highlight-card.tone-warning {
+  border-color: color-mix(in srgb, var(--bs-warning) 45%, var(--bs-border-color));
+}
+
+.highlight-card.tone-danger {
+  border-color: color-mix(in srgb, var(--bs-danger) 45%, var(--bs-border-color));
+}
+
+.conclusion-box {
+  background: color-mix(in srgb, var(--bs-primary) 8%, var(--bs-body-bg));
+}

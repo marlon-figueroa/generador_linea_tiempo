@@ -1,0 +1,17 @@
+<p class="eyebrow mb-1">JointJS</p>
+<h1 class="h3">Línea de tiempo según los parámetros</h1>
+<p class="text-secondary">
+  El diagrama usa la frecuencia de pago para colocar los nodos, la capitalización para convertir la
+  tasa, y el tipo de serie para dibujar P, F, A, G o g. Las flechas verdes son entradas; las rojas,
+  salidas.
+</p>
+
+<div class="panel mb-3">
+  <app-scenario-form [scenario]="session.scenario()" (changed)="session.update($event)" />
+  <button type="button" class="btn btn-primary mt-3" (click)="render()">Diagramar y calcular</button>
+</div>
+
+<app-timeline-board [points]="(output() ?? session.lastOutput())?.points ?? []" />
+<div class="mt-3">
+  <app-result-panel [result]="output() ?? session.lastOutput()" />
+</div>

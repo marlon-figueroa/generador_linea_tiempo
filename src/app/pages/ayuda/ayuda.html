@@ -1,0 +1,42 @@
+<p class="eyebrow mb-1">Ayuda</p>
+<h1 class="h3">Índice de conceptos usados</h1>
+<p class="text-secondary">
+  Glosario de las convenciones de este laboratorio: tasas, factores, series, evaluación y
+  depreciación. Use la búsqueda para saltar al término.
+</p>
+
+<div class="panel mb-3">
+  <div class="row g-3">
+    <div class="col-md-8">
+      <input class="form-control" placeholder="Buscar término" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" [ngModel]="category()" (ngModelChange)="category.set($event)">
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="accordion">
+  @for (topic of filtered(); track topic.id) {
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button type="button" class="accordion-button" [class.collapsed]="openId() !== topic.id" (click)="toggle(topic.id)">
+          <span class="me-2 badge text-bg-secondary">{{ topic.category }}</span>
+          {{ topic.term }}
+        </button>
+      </h2>
+      @if (openId() === topic.id) {
+        <div class="accordion-collapse">
+          <div class="accordion-body">
+            <p class="fw-semibold">{{ topic.summary }}</p>
+            <p class="mb-0">{{ topic.detail }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

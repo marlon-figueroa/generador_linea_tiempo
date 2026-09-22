@@ -1,0 +1,35 @@
+<p class="eyebrow mb-1">Evaluación</p>
+<h1 class="h3">VPN, TIR, TIRM, CAUE, B/C y recuperación</h1>
+<p class="text-secondary">Un flujo por línea: período, monto. Negativos son inversiones o costos.</p>
+
+<div class="row g-4">
+  <div class="col-xl-4">
+    <div class="panel">
+      <form class="row g-3" (submit)="$event.preventDefault()">
+        <div class="col-12">
+          <label class="form-label" for="flows">Flujos (período, monto)</label>
+          <textarea id="flows" class="form-control" rows="8" [ngModel]="flowsText()" (ngModelChange)="flowsText.set($event)" name="flows"></textarea>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="tmar">TMAR (%)</label>
+          <input id="tmar" type="number" class="form-control" [ngModel]="tmarPercent()" (ngModelChange)="tmarPercent.set($event)" name="tmar" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="fin">Financiamiento TIRM (%)</label>
+          <input id="fin" type="number" class="form-control" [ngModel]="financePercent()" (ngModelChange)="financePercent.set($event)" name="fin" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="re">Reinversión TIRM (%)</label>
+          <input id="re" type="number" class="form-control" [ngModel]="reinvestPercent()" (ngModelChange)="reinvestPercent.set($event)" name="re" />
+        </div>
+      </form>
+      <button type="button" class="btn btn-primary mt-3" (click)="calculate()">Evaluar proyecto</button>
+    </div>
+  </div>
+  <div class="col-xl-8">
+    <app-timeline-board [points]="output()?.points ?? []" />
+    <div class="mt-3">
+      <app-result-panel [result]="output()" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="ie-shell" [class.nav-open]="sidebarOpen()">
+  <aside class="ie-sidebar">
+    <div class="brand">
+      <i class="bi bi-diagram-3"></i>
+      <div>
+        <strong>Ingeniería económica</strong>
+        <small>Línea de tiempo y factores</small>
+      </div>
+    </div>
+
+    <nav class="ie-nav">
+      @for (item of menu; track item.id) {
+        @if (item.children) {
+          <button type="button" class="nav-group" [class.active]="isChildActive(item)" (click)="toggleGroup(item.id)">
+            <span><i class="bi {{ item.icon }}"></i>{{ item.label }}</span>
+            <i class="bi" [class.bi-chevron-down]="isOpen(item)" [class.bi-chevron-right]="!isOpen(item)"></i>
+          </button>
+          @if (isOpen(item)) {
+            <div class="nav-children">
+              @for (child of item.children; track child.id) {
+                <a [routerLink]="child.route" routerLinkActive="active">
+                  <i class="bi {{ child.icon }}"></i>{{ child.label }}
+                </a>
+              }
+            </div>
+          }
+        } @else {
+          <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: item.route === '/' }">
+            <i class="bi {{ item.icon }}"></i>{{ item.label }}
+          </a>
+        }
+      }
+    </nav>
+  </aside>
+
+  <div class="ie-content">
+    <header class="ie-topbar">
+      <button type="button" class="btn btn-outline-secondary d-lg-none" (click)="sidebarOpen.set(!sidebarOpen())">
+        <i class="bi bi-list"></i>
+      </button>
+      <div class="flex-grow-1">
+        <div class="small text-secondary">Laboratorio de cálculos</div>
+        <strong>Tablas, fórmulas, TIR y diagramas JointJS</strong>
+      </div>
+      <button type="button" class="btn btn-outline-primary" (click)="theme.toggle()">
+        @if (theme.theme() === 'dark') {
+          <i class="bi bi-sun me-1"></i>Tema claro
+        } @else {
+          <i class="bi bi-moon-stars me-1"></i>Tema oscuro
+        }
+      </button>
+    </header>
+    <main class="ie-main">
+      <router-outlet />
+    </main>
+  </div>
+</div>

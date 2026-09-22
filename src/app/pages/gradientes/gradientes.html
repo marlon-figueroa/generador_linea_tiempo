@@ -1,0 +1,26 @@
+<p class="eyebrow mb-1">Gradientes</p>
+<h1 class="h3">Crecimiento aritmético G y geométrico g</h1>
+<p class="text-secondary">
+  En el gradiente aritmético el primer pago es A y luego suma G. En el geométrico cada pago se
+  multiplica por (1+g).
+</p>
+
+<div class="d-flex flex-wrap gap-2 mb-3">
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="useArithmetic()">Ejemplo aritmético</button>
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="useGeometric()">Ejemplo geométrico</button>
+</div>
+
+<div class="row g-4">
+  <div class="col-xl-5">
+    <div class="panel">
+      <app-scenario-form [scenario]="session.scenario()" (changed)="session.update($event)" />
+      <button type="button" class="btn btn-primary mt-3" (click)="calculate()">Calcular gradiente</button>
+    </div>
+  </div>
+  <div class="col-xl-7">
+    <app-timeline-board [points]="(output() ?? session.lastOutput())?.points ?? []" />
+    <div class="mt-3">
+      <app-result-panel [result]="output() ?? session.lastOutput()" />
+    </div>
+  </div>
+</div>

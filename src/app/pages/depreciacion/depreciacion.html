@@ -1,0 +1,43 @@
+<p class="eyebrow mb-1">Depreciación</p>
+<h1 class="h3">Línea recta, suma de dígitos, saldo decreciente y uso</h1>
+
+<div class="panel mb-4">
+  <form class="row g-3" (submit)="$event.preventDefault()">
+    <div class="col-md-3">
+      <label class="form-label" for="method">Método</label>
+      <select id="method" class="form-select" [ngModel]="method()" (ngModelChange)="method.set($event)" name="method">
+        <option value="sl">Línea recta</option>
+        <option value="soyd">Suma de dígitos</option>
+        <option value="ddb">Saldo decreciente</option>
+        <option value="uop">Unidades de producción</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="cost">Costo C</label>
+      <input id="cost" type="number" class="form-control" [ngModel]="cost()" (ngModelChange)="cost.set($event)" name="cost" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="salvage">Salvamento S</label>
+      <input id="salvage" type="number" class="form-control" [ngModel]="salvage()" (ngModelChange)="salvage.set($event)" name="salvage" />
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="life">Vida N</label>
+      <input id="life" type="number" class="form-control" [ngModel]="life()" (ngModelChange)="life.set($event)" name="life" />
+    </div>
+    @if (method() === 'ddb') {
+      <div class="col-md-3">
+        <label class="form-label" for="mult">Multiplicador α</label>
+        <input id="mult" type="number" class="form-control" [ngModel]="multiplier()" (ngModelChange)="multiplier.set($event)" name="mult" />
+      </div>
+    }
+    @if (method() === 'uop') {
+      <div class="col-md-9">
+        <label class="form-label" for="units">Unidades por período</label>
+        <input id="units" class="form-control" [ngModel]="unitsText()" (ngModelChange)="unitsText.set($event)" name="units" />
+      </div>
+    }
+  </form>
+  <button type="button" class="btn btn-primary mt-3" (click)="calculate()">Calcular depreciación</button>
+</div>
+
+<app-result-panel [result]="output()" />

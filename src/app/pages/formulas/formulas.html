@@ -1,0 +1,60 @@
+<p class="eyebrow mb-1">Generador</p>
+<h1 class="h3">Fórmulas según la incógnita y los datos</h1>
+<p class="text-secondary">Filtre el catálogo, elija la relación y complete los valores conocidos.</p>
+
+<div class="row g-4">
+  <div class="col-lg-4">
+    <div class="panel mb-3">
+      <input class="form-control mb-2" placeholder="Buscar fórmula" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+      <select class="form-select" [ngModel]="category()" (ngModelChange)="category.set($event)">
+        <option>Todas</option>
+        @for (cat of categories; track cat) {
+          <option [value]="cat">{{ cat }}</option>
+        }
+      </select>
+    </div>
+    <div class="list-group">
+      @for (item of filtered(); track item.id) {
+        <button type="button" class="list-group-item list-group-item-action" [class.active]="item.id === selectedId()" (click)="pick(item)">
+          <div class="fw-semibold">{{ item.name }}</div>
+          <small>{{ item.expression }}</small>
+        </button>
+      }
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="panel mb-3">
+      <form class="row g-3" (submit)="$event.preventDefault()">
+        <div class="col-md-4">
+          <label class="form-label" for="P">P</label>
+          <input id="P" type="number" class="form-control" [ngModel]="P()" (ngModelChange)="P.set($event || 0)" name="P" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="F">F</label>
+          <input id="F" type="number" class="form-control" [ngModel]="F()" (ngModelChange)="F.set($event || 0)" name="F" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="A">A</label>
+          <input id="A" type="number" class="form-control" [ngModel]="A()" (ngModelChange)="A.set($event || 0)" name="A" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="G">G</label>
+          <input id="G" type="number" class="form-control" [ngModel]="G()" (ngModelChange)="G.set($event || 0)" name="G" />
+        </div>
+        <div class="col-md-4">
+          <label class="form-label" for="i">i (%)</label>
+          <input id="i" type="number" class="form-control" [ngModel]="iPercent()" (ngModelChange)="iPercent.set($event || 0)" name="i" />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label" for="n">n</label>
+          <input id="n" type="number" class="form-control" [ngModel]="n()" (ngModelChange)="n.set($event || 0)" name="n" />
+        </div>
+        <div class="col-md-2">
+          <label class="form-label" for="g">g (%)</label>
+          <input id="g" type="number" class="form-control" [ngModel]="gPercent()" (ngModelChange)="gPercent.set($event || 0)" name="g" />
+        </div>
+      </form>
+    </div>
+    <app-result-panel [result]="output()" />
+  </div>
+</div>

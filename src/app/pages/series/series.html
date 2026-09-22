@@ -1,0 +1,27 @@
+<p class="eyebrow mb-1">Series de pagos</p>
+<h1 class="h3">Anualidades ordinarias, anticipadas, diferidas y perpetuas</h1>
+<p class="text-secondary">
+  La frecuencia de pago define n. Si no coincide con la capitalización, la tasa se convierte a una
+  equivalente del período de la serie.
+</p>
+
+<div class="d-flex flex-wrap gap-2 mb-3">
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="applyKind('uniform')">Uniforme</button>
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="applyKind('deferred')">Diferida</button>
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="applyKind('perpetuity')">Perpetuidad</button>
+</div>
+
+<div class="row g-4">
+  <div class="col-xl-5">
+    <div class="panel">
+      <app-scenario-form [scenario]="session.scenario()" (changed)="session.update($event)" />
+      <button type="button" class="btn btn-primary mt-3" (click)="calculate()">Calcular serie</button>
+    </div>
+  </div>
+  <div class="col-xl-7">
+    <app-timeline-board [points]="(output() ?? session.lastOutput())?.points ?? []" />
+    <div class="mt-3">
+      <app-result-panel [result]="output() ?? session.lastOutput()" />
+    </div>
+  </div>
+</div>
