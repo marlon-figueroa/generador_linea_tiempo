@@ -26,13 +26,17 @@ export class LatexService {
     if (!text || /[$€]|copiado|ajuste los|complete |seleccione/i.test(text)) {
       return false;
     }
-    if (/[A-Z]\/[A-Z]/.test(text)) {
-      return true;
-    }
-    if (/[áéíóúñ¿¡]/i.test(text) && !/\\[a-zA-Z]/.test(text)) {
+    const words = text.match(/[A-Za-zÁ-ú]{3,}/g) ?? [];
+    const isFactor = /[A-Z]\/[A-Z]/.test(text);
+    const isLatex = /\\[a-zA-Z]/.test(text);
+    const isNumericResult = /=\s*[-+]?\d/.test(text) && !isFactor && !isLatex;
+    if (isNumericResult || (words.length >= 2 && !isLatex)) {
       return false;
     }
-    return this.isRenderable(text) && text.length <= 140;
+    if (isFactor || isLatex) {
+      return true;
+    }
+    return this.isRenderable(text) && text.length <= 80 && words.length <= 1;
   }
 
   toLatex(source: string): string {
