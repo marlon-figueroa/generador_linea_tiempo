@@ -33,10 +33,10 @@ export class Tasas {
       title: 'Catálogo de tasas equivalentes',
       formula:
         this.interestType() === 'continuous'
-          ? 'i_e = e^r − 1'
+          ? 'i_{e} = e^{r}-1'
           : this.interestType() === 'simple'
-            ? 'i = j  (sin capitalización)'
-            : 'i_e = (1 + j/m)^m − 1',
+            ? 'i = j'
+            : 'i_{e} = \\left(1+\\dfrac{j}{m}\\right)^{m}-1',
       steps: [
         `Nominal j = ${pctFmt(j)} capitalizable ${this.capitalization()}.`,
         `Tasa efectiva anual = ${pctFmt(ie)}.`,

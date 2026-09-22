@@ -34,19 +34,19 @@ export class Depreciacion {
 
     if (method === 'sl') {
       title = 'Línea recta';
-      formula = 'D = (C − S) / N';
+      formula = 'D = \\dfrac{C-S}{N}';
       rows = this.engineering.straightLine(C, S, N);
     } else if (method === 'soyd') {
       title = 'Suma de dígitos de los años';
-      formula = 'D_t = (C − S)·(N − t + 1) / [N(N+1)/2]';
+      formula = 'D_{t} = (C-S)\\dfrac{N-t+1}{N(N+1)/2}';
       rows = this.engineering.sumOfYears(C, S, N);
     } else if (method === 'ddb') {
       title = 'Saldo decreciente (con cambio a línea recta)';
-      formula = 'D_t = min(VL_{t-1}·α/N, (VL_{t-1} − S)/años restantes)';
+      formula = 'D_{t} = \\min\\left(VL_{t-1}\\dfrac{\\alpha}{N},\\,\\dfrac{VL_{t-1}-S}{N-t+1}\\right)';
       rows = this.engineering.decliningBalance(C, S, N, this.multiplier());
     } else {
       title = 'Unidades de producción';
-      formula = 'D_t = (C − S)·u_t / U';
+      formula = 'D_{t} = (C-S)\\dfrac{u_{t}}{U}';
       const units = this.unitsText()
         .split(/[,\s]+/)
         .map(Number)

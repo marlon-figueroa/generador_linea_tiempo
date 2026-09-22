@@ -5,6 +5,7 @@ export interface FormulaEntry {
   unknown: string;
   required: string[];
   expression: string;
+  latex: string;
   notes: string;
 }
 
@@ -16,6 +17,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'F',
     required: ['P', 'i', 't'],
     expression: 'F = P(1 + i·t)',
+    latex: 'F = P(1 + i\\cdot t)',
     notes: 'i y t deben estar en la misma unidad (años, meses). No hay capitalización.',
   },
   {
@@ -25,6 +27,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['F', 'i', 't'],
     expression: 'P = F / (1 + i·t)',
+    latex: 'P = \\dfrac{F}{1 + i\\cdot t}',
     notes: 'Descuento racional simple.',
   },
   {
@@ -34,6 +37,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'I',
     required: ['P', 'i', 't'],
     expression: 'I = P·i·t',
+    latex: 'I = P\\cdot i\\cdot t',
     notes: 'El interés no se incorpora al capital durante el plazo.',
   },
   {
@@ -43,6 +47,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'F',
     required: ['P', 'i', 'n'],
     expression: 'F = P(F/P, i, n) = P(1+i)^n',
+    latex: 'F = P(F/P, i, n) = P(1+i)^{n}',
     notes: 'Capitalización discreta por período.',
   },
   {
@@ -52,6 +57,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['F', 'i', 'n'],
     expression: 'P = F(P/F, i, n) = F(1+i)^{-n}',
+    latex: 'P = F(P/F, i, n) = F(1+i)^{-n}',
     notes: 'También llamado factor de descuento.',
   },
   {
@@ -61,6 +67,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'F',
     required: ['A', 'i', 'n'],
     expression: 'F = A(F/A, i, n) = A[((1+i)^n − 1)/i]',
+    latex: 'F = A(F/A, i, n) = A\\dfrac{(1+i)^{n}-1}{i}',
     notes: 'Anualidad ordinaria: el último pago coincide con F.',
   },
   {
@@ -70,6 +77,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'A',
     required: ['F', 'i', 'n'],
     expression: 'A = F(A/F, i, n) = F[i/((1+i)^n − 1)]',
+    latex: 'A = F(A/F, i, n) = F\\dfrac{i}{(1+i)^{n}-1}',
     notes: 'Cuota para acumular un monto futuro.',
   },
   {
@@ -79,6 +87,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'i', 'n'],
     expression: 'P = A(P/A, i, n) = A[((1+i)^n − 1)/(i(1+i)^n)]',
+    latex: 'P = A(P/A, i, n) = A\\dfrac{(1+i)^{n}-1}{i(1+i)^{n}}',
     notes: 'Anualidad vencida. Si es anticipada, multiplique por (1+i).',
   },
   {
@@ -88,6 +97,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'A',
     required: ['P', 'i', 'n'],
     expression: 'A = P(A/P, i, n) = P[i(1+i)^n / ((1+i)^n − 1)]',
+    latex: 'A = P(A/P, i, n) = P\\dfrac{i(1+i)^{n}}{(1+i)^{n}-1}',
     notes: 'Cuota que amortiza un capital presente.',
   },
   {
@@ -97,6 +107,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'i', 'n'],
     expression: 'P_ant = A(P/A, i, n)(1+i)',
+    latex: 'P_{\\mathrm{ant}} = A(P/A, i, n)(1+i)',
     notes: 'Los pagos ocurren al inicio de cada período.',
   },
   {
@@ -106,6 +117,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'i', 'n', 'k'],
     expression: 'P = A[(P/A, i, n+k) − (P/A, i, k)]',
+    latex: 'P = A\\big[(P/A, i, n+k)-(P/A, i, k)\\big]',
     notes: 'k es el número de períodos de gracia antes del primer pago.',
   },
   {
@@ -115,6 +127,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'i'],
     expression: 'P = A / i',
+    latex: 'P = \\dfrac{A}{i}',
     notes: 'Horizonte infinito. Requiere i > 0.',
   },
   {
@@ -124,6 +137,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'i', 'g'],
     expression: 'P = A / (i − g)',
+    latex: 'P = \\dfrac{A}{i-g}',
     notes: 'Válida solo si i > g.',
   },
   {
@@ -133,6 +147,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['G', 'i', 'n'],
     expression: 'P = G(P/G, i, n) = G[((1+i)^n − i n − 1)/(i^2 (1+i)^n)]',
+    latex: 'P = G(P/G, i, n) = G\\dfrac{(1+i)^{n}-in-1}{i^{2}(1+i)^{n}}',
     notes: 'El primer incremento G ocurre en el período 2 (convención estándar).',
   },
   {
@@ -142,6 +157,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'A',
     required: ['G', 'i', 'n'],
     expression: 'A = G(A/G, i, n) = G[1/i − n/((1+i)^n − 1)]',
+    latex: 'A = G(A/G, i, n) = G\\left(\\dfrac{1}{i}-\\dfrac{n}{(1+i)^{n}-1}\\right)',
     notes: 'Convierte el gradiente en una serie uniforme equivalente.',
   },
   {
@@ -151,6 +167,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'G', 'i', 'n'],
     expression: 'P = A(P/A, i, n) + G(P/G, i, n)',
+    latex: 'P = A(P/A, i, n) + G(P/G, i, n)',
     notes: 'A es el pago del primer período; G el incremento constante.',
   },
   {
@@ -160,6 +177,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'P',
     required: ['A', 'g', 'i', 'n'],
     expression: 'P = A[1 − ((1+g)/(1+i))^n] / (i − g)   (i ≠ g)',
+    latex: 'P = A\\dfrac{1-\\left(\\dfrac{1+g}{1+i}\\right)^{n}}{i-g}\\quad (i\\neq g)',
     notes: 'Si i = g, P = A n / (1+i).',
   },
   {
@@ -169,6 +187,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'ie',
     required: ['j', 'm'],
     expression: 'i_e = (1 + j/m)^m − 1',
+    latex: 'i_{e} = \\left(1+\\dfrac{j}{m}\\right)^{m}-1',
     notes: 'j es la tasa nominal anual; m el número de capitalizaciones por año.',
   },
   {
@@ -178,6 +197,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'ie',
     required: ['r'],
     expression: 'i_e = e^r − 1',
+    latex: 'i_{e} = e^{r}-1',
     notes: 'r es la fuerza de interés nominal continua.',
   },
   {
@@ -187,6 +207,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'i',
     required: ['ie', 'p'],
     expression: 'i = (1 + i_e)^{1/p} − 1',
+    latex: 'i = (1+i_{e})^{1/p}-1',
     notes: 'p es la frecuencia de pago (periodos por año).',
   },
   {
@@ -196,6 +217,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'i′',
     required: ['i', 'f'],
     expression: "i' = (i − f) / (1 + f)",
+    latex: "i' = \\dfrac{i-f}{1+f}",
     notes: 'Depura la inflación f de la tasa corriente i.',
   },
   {
@@ -205,6 +227,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'VPN',
     required: ['CF_t', 'i'],
     expression: 'VPN = Σ CF_t / (1+i)^t',
+    latex: 'VPN = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+i)^{t}}',
     notes: 'Aceptar el proyecto si VPN ≥ 0 a la TMAR.',
   },
   {
@@ -214,6 +237,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'TIR',
     required: ['CF_t'],
     expression: '0 = Σ CF_t / (1+TIR)^t',
+    latex: '0 = \\sum_{t=0}^{n}\\dfrac{CF_{t}}{(1+TIR)^{t}}',
     notes: 'Aceptar si TIR ≥ TMAR. Cuidado con múltiples raíces.',
   },
   {
@@ -223,6 +247,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'TIRM',
     required: ['CF_t', 'i_fin', 'i_reinv'],
     expression: 'TIRM = (FV⁺ / |PV⁻|)^{1/n} − 1',
+    latex: 'TIRM = \\left(\\dfrac{FV^{+}}{\\lvert PV^{-}\\rvert}\\right)^{1/n}-1',
     notes: 'Los positivos se reinvierten; los negativos se financian.',
   },
   {
@@ -232,6 +257,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'CAUE',
     required: ['VPN', 'i', 'n'],
     expression: 'CAUE = VPN (A/P, i, n)',
+    latex: 'CAUE = VPN\\,(A/P, i, n)',
     notes: 'Compara alternativas con vidas distintas.',
   },
   {
@@ -241,6 +267,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'B/C',
     required: ['B', 'C', 'i'],
     expression: 'B/C = VP(beneficios) / VP(costos)',
+    latex: '\\dfrac{B}{C} = \\dfrac{VP(\\text{beneficios})}{VP(\\text{costos})}',
     notes: 'Aceptar si B/C ≥ 1. En incrementales use ΔB/ΔC.',
   },
   {
@@ -250,6 +277,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'PR',
     required: ['CF_t'],
     expression: 'PR = t* + |acum_{t*}| / CF_{t*+1}',
+    latex: 'PR = t^{*} + \\dfrac{\\lvert \\mathrm{acum}_{t^{*}}\\rvert}{CF_{t^{*}+1}}',
     notes: 'El descontado usa CF_t/(1+i)^t. No mide rentabilidad residual.',
   },
   {
@@ -259,6 +287,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'CC',
     required: ['P', 'A', 'i'],
     expression: 'CC = P + A / i',
+    latex: 'CC = P + \\dfrac{A}{i}',
     notes: 'Vida infinita o muy larga (obras públicas, terrenos).',
   },
   {
@@ -268,6 +297,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'D',
     required: ['C', 'S', 'N'],
     expression: 'D = (C − S) / N',
+    latex: 'D = \\dfrac{C-S}{N}',
     notes: 'Cargo constante. Valor en libros = C − D·t.',
   },
   {
@@ -277,6 +307,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'D_t',
     required: ['C', 'S', 'N', 't'],
     expression: 'D_t = (C − S) · (N − t + 1) / [N(N+1)/2]',
+    latex: 'D_{t} = (C-S)\\dfrac{N-t+1}{N(N+1)/2}',
     notes: 'Acelerada: mayor cargo al inicio.',
   },
   {
@@ -286,6 +317,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'D_t',
     required: ['VL_{t-1}', 'd'],
     expression: 'D_t = VL_{t-1} · d    d = α / N',
+    latex: 'D_{t} = VL_{t-1}\\cdot d \\qquad d = \\alpha/N',
     notes: 'α = 2 es doble saldo decreciente. Suele cambiarse a línea recta.',
   },
   {
@@ -295,6 +327,7 @@ export const FORMULA_CATALOG: FormulaEntry[] = [
     unknown: 'D_t',
     required: ['C', 'S', 'U', 'u_t'],
     expression: 'D_t = (C − S) · u_t / U',
+    latex: 'D_{t} = (C-S)\\dfrac{u_{t}}{U}',
     notes: 'El cargo sigue el uso real del activo.',
   },
 ];

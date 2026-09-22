@@ -1,6 +1,21 @@
-<figure class="latex-card">
-  @if (caption()) {
-    <figcaption>{{ caption() }}</figcaption>
+@if (fallback()) {
+  <p class="latex-plain mb-0">{{ fallback() }}</p>
+} @else if (display() === 'inline') {
+  <span class="latex-inline">
+    @if (caption()) {
+      <span class="latex-inline-caption">{{ caption() }}</span>
+    }
+    @for (part of htmlParts(); track $index) {
+      <span class="latex-body" [innerHTML]="part"></span>
+    }
+  </span>
+} @else {
+  @for (part of htmlParts(); track $index) {
+    <figure class="latex-card" [class.bare]="!framed()">
+      @if (caption() && $index === 0) {
+        <figcaption>{{ caption() }}</figcaption>
+      }
+      <div class="latex-body" [innerHTML]="part"></div>
+    </figure>
   }
-  <div class="latex-body" [innerHTML]="html()"></div>
-</figure>
+}

@@ -411,11 +411,11 @@ export class EngineeringService {
     if (scenario.interestType === 'simple') {
       if (!F && P) {
         F = this.simpleFuture(P, rates.nominalAnnual, scenario.years);
-        formulaParts.push('F = P(1 + i·t)');
+        formulaParts.push('F = P(1 + i\\cdot t)');
         steps.push(`F = ${moneyFmt(P)}(1 + ${pctFmt(rates.nominalAnnual)}·${scenario.years}) = ${moneyFmt(F)}.`);
       } else if (!P && F) {
         P = this.simplePresent(F, rates.nominalAnnual, scenario.years);
-        formulaParts.push('P = F / (1 + i·t)');
+        formulaParts.push('P = \\dfrac{F}{1 + i\\cdot t}');
         steps.push(`P = ${moneyFmt(F)} / (1 + ${pctFmt(rates.nominalAnnual)}·${scenario.years}) = ${moneyFmt(P)}.`);
       }
     } else if (scenario.interestType === 'continuous') {
@@ -432,7 +432,7 @@ export class EngineeringService {
         case 'single': {
           if (!F && P) {
             F = P * this.factorFP(i, n);
-            formulaParts.push(`F = P(F/P, i, n) = P(1+i)^n`);
+            formulaParts.push(`F = P(F/P, i, n) = P(1+i)^{n}`);
             steps.push(`(F/P, ${pctFmt(i)}, ${n}) = ${factorFmt(this.factorFP(i, n))}`);
             steps.push(`F = ${moneyFmt(P)} × ${factorFmt(this.factorFP(i, n))} = ${moneyFmt(F)}`);
           } else if (!P && F) {
@@ -478,7 +478,7 @@ export class EngineeringService {
           if (A) {
             P = A * (this.factorPA(i, n + k) - this.factorPA(i, k));
             F = A * this.factorFA(i, n);
-            formulaParts.push('P = A[(P/A, i, n+k) − (P/A, i, k)]');
+            formulaParts.push('P = A\\big[(P/A, i, n+k)-(P/A, i, k)\\big]');
             steps.push(`Diferida ${k} períodos, serie ${timingNote}, n=${n}.`);
             steps.push(`P = ${moneyFmt(A)} × [${factorFmt(this.factorPA(i, n + k))} − ${factorFmt(this.factorPA(i, k))}] = ${moneyFmt(P)}`);
           }
@@ -489,9 +489,9 @@ export class EngineeringService {
             P = i === 0 ? Number.POSITIVE_INFINITY : A / i;
             if (g > 0 && g < i) {
               P = A / (i - g);
-              formulaParts.push('P = A / (i − g)');
+              formulaParts.push('P = \\dfrac{A}{i-g}');
             } else {
-              formulaParts.push('P = A / i');
+              formulaParts.push('P = \\dfrac{A}{i}');
             }
             steps.push(`Perpetuidad ${timingNote}: P = ${moneyFmt(P)}`);
           }
@@ -514,7 +514,11 @@ export class EngineeringService {
             P *= 1 + i;
           }
           F = P * this.factorFP(i, n);
-          formulaParts.push(Math.abs(i - g) < 1e-12 ? 'P = A · n / (1+i)' : 'P = A [1 − ((1+g)/(1+i))^n] / (i − g)');
+          formulaParts.push(
+            Math.abs(i - g) < 1e-12
+              ? 'P = \\dfrac{A n}{1+i}'
+              : 'P = A\\dfrac{1-\\left(\\dfrac{1+g}{1+i}\\right)^{n}}{i-g}',
+          );
           steps.push(`g = ${pctFmt(g)}, factor geométrico = ${factorFmt(factor)}`);
           steps.push(`P = ${moneyFmt(A)} × ${factorFmt(factor)} = ${moneyFmt(P)}`);
           break;
@@ -525,7 +529,7 @@ export class EngineeringService {
     const conclusion = this.composeConclusion(scenario, rates, P, F, A, G, g);
     return {
       title: scenario.title,
-      formula: formulaParts.join('  ·  ') || 'Seleccione valores conocidos para generar la fórmula.',
+      formula: formulaParts.join(' \\qquad ') || 'Seleccione valores conocidos para generar la fórmula.',
       steps,
       highlights: [
         { label: 'Valor presente P', value: moneyFmt(P), tone: 'primary' },
@@ -571,7 +575,7 @@ export class EngineeringService {
     if (unknown === 'F' && P != null && i != null && n != null) {
       return {
         value: P * this.factorFP(i, n),
-        formula: 'F = P(1+i)^n',
+        formula: 'F = P(1+i)^{n}',
         steps: [`(F/P, ${pctFmt(i)}, ${n}) = ${factorFmt(this.factorFP(i, n))}`],
       };
     }
@@ -612,11 +616,11 @@ export class EngineeringService {
     }
     if (unknown === 'i' && P != null && F != null && n != null && P !== 0) {
       const rate = (F / P) ** (1 / n) - 1;
-      return { value: rate, formula: 'i = (F/P)^{1/n} − 1', steps: [`i = ${pctFmt(rate)}`] };
+      return { value: rate, formula: 'i = (F/P)^{1/n}-1', steps: [`i = ${pctFmt(rate)}`] };
     }
     if (unknown === 'n' && P != null && F != null && i != null && i > -1 && P !== 0) {
       const periods = Math.log(F / P) / Math.log(1 + i);
-      return { value: periods, formula: 'n = ln(F/P) / ln(1+i)', steps: [`n = ${numFmt(periods, 4)}`] };
+      return { value: periods, formula: 'n = \\dfrac{\\ln(F/P)}{\\ln(1+i)}', steps: [`n = ${numFmt(periods, 4)}`] };
     }
     return { value: null, formula: 'Datos insuficientes o inconsistentes', steps: [] };
   }

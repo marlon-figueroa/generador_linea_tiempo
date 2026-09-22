@@ -6,10 +6,25 @@
   background: color-mix(in srgb, var(--bs-primary) 7%, var(--bs-body-bg));
 }
 
-.latex-card figcaption {
+.latex-card:last-child {
+  margin-bottom: 0;
+}
+
+.latex-card.bare {
+  margin: 0;
+  padding: 0.15rem 0;
+  border: 0;
+  background: transparent;
+}
+
+.latex-card figcaption,
+.latex-inline-caption {
   font-size: 0.82rem;
   font-weight: 700;
   color: var(--bs-primary);
+}
+
+.latex-card figcaption {
   margin-bottom: 0.45rem;
 }
 
@@ -20,6 +35,22 @@
 
 .latex-body :deep(.katex-display) {
   margin: 0.35rem 0;
+}
+
+.latex-inline {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 100%;
+}
+
+.latex-inline .latex-body {
+  overflow: visible;
+}
+
+.latex-plain {
+  color: var(--bs-secondary-color);
 }
 
 .latex-fallback {

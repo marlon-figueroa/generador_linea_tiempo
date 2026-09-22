@@ -1,9 +1,11 @@
 import { Component, input, signal } from '@angular/core';
 import { CalcOutput } from '../../core/models/engineering.models';
 import { copyText, tableToTsv } from '../../core/utils/format';
+import { LatexFormula } from '../latex-formula/latex-formula';
 
 @Component({
   selector: 'app-result-panel',
+  imports: [LatexFormula],
   templateUrl: './result-panel.html',
   styleUrl: './result-panel.scss',
 })

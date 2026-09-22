@@ -17,7 +17,7 @@
       @for (item of filtered(); track item.id) {
         <button type="button" class="list-group-item list-group-item-action" [class.active]="item.id === selectedId()" (click)="pick(item)">
           <div class="fw-semibold">{{ item.name }}</div>
-          <small>{{ item.expression }}</small>
+          <app-latex-formula [latex]="item.latex" display="inline" />
         </button>
       }
     </div>

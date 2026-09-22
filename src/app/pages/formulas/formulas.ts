@@ -4,10 +4,11 @@ import { FORMULA_CATALOG, FormulaEntry } from '../../core/data/formulas.catalog'
 import { EngineeringService } from '../../core/services/engineering.service';
 import { moneyFmt, numFmt, pctFmt } from '../../core/utils/format';
 import { ResultPanel } from '../../shared/result-panel/result-panel';
+import { LatexFormula } from '../../shared/latex-formula/latex-formula';
 
 @Component({
   selector: 'app-formulas',
-  imports: [FormsModule, ResultPanel],
+  imports: [FormsModule, ResultPanel, LatexFormula],
   templateUrl: './formulas.html',
 })
 export class Formulas {
@@ -44,7 +45,7 @@ export class Formulas {
     const solved = this.compute(formula);
     return {
       title: formula.name,
-      formula: formula.expression,
+      formula: formula.latex,
       steps: [formula.notes, ...solved.steps],
       highlights: [
         { label: 'Incógnita', value: formula.unknown, tone: 'primary' as const },

@@ -17,8 +17,8 @@
     }
 
     <div class="formula-box mb-3">
-      <div class="small text-secondary text-uppercase fw-semibold">Fórmula generada</div>
-      <code>{{ output.formula }}</code>
+      <div class="small text-secondary text-uppercase fw-semibold mb-2">Fórmula generada</div>
+      <app-latex-formula [latex]="output.formula" [framed]="false" />
     </div>
 
     <div class="row g-3 mb-3">
