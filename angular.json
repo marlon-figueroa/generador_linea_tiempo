@@ -28,9 +28,14 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "*.{woff,woff2,ttf}",
+                "input": "node_modules/katex/dist/fonts",
+                "output": "fonts"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["node_modules/katex/dist/katex.min.css", "src/styles.scss"],
             "baseHref": "/"
           },
           "configurations": {

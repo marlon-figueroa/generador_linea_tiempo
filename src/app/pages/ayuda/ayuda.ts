@@ -1,10 +1,11 @@
 import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HELP_TOPICS } from '../../core/data/help.data';
+import { LatexFormula } from '../../shared/latex-formula/latex-formula';
 
 @Component({
   selector: 'app-ayuda',
-  imports: [FormsModule],
+  imports: [FormsModule, LatexFormula],
   templateUrl: './ayuda.html',
 })
 export class Ayuda {
@@ -18,7 +19,8 @@ export class Ayuda {
     const q = this.query().toLowerCase();
     return this.topics.filter((topic) => {
       const catOk = this.category() === 'Todas' || topic.category === this.category();
-      return catOk && `${topic.term} ${topic.summary} ${topic.detail}`.toLowerCase().includes(q);
+      const formulas = (topic.formulas ?? []).map((item) => `${item.caption} ${item.latex}`).join(' ');
+      return catOk && `${topic.term} ${topic.summary} ${topic.detail} ${formulas}`.toLowerCase().includes(q);
     });
   });
 

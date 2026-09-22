@@ -1,14 +1,13 @@
 <p class="eyebrow mb-1">Ayuda</p>
 <h1 class="h3">Índice de conceptos usados</h1>
 <p class="text-secondary">
-  Glosario de las convenciones de este laboratorio: tasas, factores, series, evaluación y
-  depreciación. Use la búsqueda para saltar al término.
+  Glosario de las convenciones de este laboratorio. Las fórmulas se generan en LaTeX.
 </p>
 
 <div class="panel mb-3">
   <div class="row g-3">
     <div class="col-md-8">
-      <input class="form-control" placeholder="Buscar término" [ngModel]="query()" (ngModelChange)="query.set($event)" />
+      <input class="form-control" placeholder="Buscar término o fórmula" [ngModel]="query()" (ngModelChange)="query.set($event)" />
     </div>
     <div class="col-md-4">
       <select class="form-select" [ngModel]="category()" (ngModelChange)="category.set($event)">
@@ -33,7 +32,13 @@
         <div class="accordion-collapse">
           <div class="accordion-body">
             <p class="fw-semibold">{{ topic.summary }}</p>
-            <p class="mb-0">{{ topic.detail }}</p>
+            <p>{{ topic.detail }}</p>
+            @if (topic.formulas?.length) {
+              <h3 class="h6 mt-3">Fórmulas</h3>
+              @for (formula of topic.formulas; track formula.latex) {
+                <app-latex-formula [caption]="formula.caption" [latex]="formula.latex" />
+              }
+            }
           </div>
         </div>
       }
